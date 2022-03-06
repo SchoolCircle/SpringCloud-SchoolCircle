@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Tes")
 public class TesController {
 
     @Autowired
@@ -23,6 +22,6 @@ public class TesController {
     }
     @GetMapping("/hello")
     public String hello(){
-        return "Hello!";
+        return "Hello!,This is Tes";
     }
 }

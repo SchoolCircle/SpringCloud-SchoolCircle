@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Eureka" />
         <module name="Register" />
+        <module name="Gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
