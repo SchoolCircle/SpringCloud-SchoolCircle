@@ -1,5 +1,9 @@
+/**
+ *
+ * @author KEPADEDAIDAI
+ * @date 2022/3/10 15:49
+ */
 package com.example.entity;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
