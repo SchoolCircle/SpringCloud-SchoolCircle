@@ -2,7 +2,7 @@ server:
   port: 8002
 spring:
   application:
-    name: SchoolCircle-Eureka
+    name: Eureka
 eureka:
   server:
     enable-self-preservation: false #关闭自我保护机制

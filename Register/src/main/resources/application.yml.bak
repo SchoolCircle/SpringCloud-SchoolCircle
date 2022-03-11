@@ -17,7 +17,10 @@ spring:
   #          socketFactoryClass: javax.net.ssl.SSLSocketFactory
   #        debug: true
   application:
-    name: SchoolCircle-Register
+    name: Register
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 eureka:
   client:
     service-url:
