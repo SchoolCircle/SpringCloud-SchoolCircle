@@ -11,6 +11,7 @@
         <module name="Eureka" />
         <module name="Register" />
         <module name="Gateway" />
+        <module name="Playground" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
