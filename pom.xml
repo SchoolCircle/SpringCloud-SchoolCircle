@@ -13,6 +13,7 @@
         <module>Gateway</module>
         <module>Chat</module>
         <module>Playground</module>
+        <module>Nacos</module>
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
@@ -54,10 +55,22 @@
                 <artifactId>spring-cloud-netflix-eureka-server</artifactId>
                 <version>3.1.0</version>
             </dependency>
+
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.28</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>2021.1</version>
             </dependency>
             <!--mybatis-->
             <dependency>
