@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Chat" />
-        <module name="Nacos" />
         <module name="Eureka" />
         <module name="Register" />
         <module name="Gateway" />
@@ -16,6 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Nacos" target="8" />
       <module name="Regist" target="8" />
     </bytecodeTargetLevel>
   </component>

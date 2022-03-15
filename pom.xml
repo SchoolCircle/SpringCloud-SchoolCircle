@@ -13,7 +13,7 @@
         <module>Gateway</module>
         <module>Chat</module>
         <module>Playground</module>
-        <module>Nacos</module>
+<!--        <module>Nacos</module>-->
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
@@ -70,6 +70,11 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>2021.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
                 <version>2021.1</version>
             </dependency>
             <!--mybatis-->
