@@ -21,13 +21,10 @@ spring:
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8002/eureka
-    fetch-registry: true # 发现
-    register-with-eureka: true # 注册
-
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
 server:
   port: 8003
 
