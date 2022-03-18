@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ******
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ******
+  application:
+    name: Playground
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.example.entity
+  ## mybatis.mapper-locations= classpath:mapper/*.xml,classpath:mapper/user/*.xml
+
+server:
+  port: 8005
+
