@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Data
 @Entity
@@ -19,17 +20,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uid;
-    private String name;
     @JsonIgnore
-    private String pass;
+    private String password;
     @JsonIgnore
-    private String repass;  //验证码
+    private String pin;
     @JsonIgnore
-    private String repasstime;  //验证码有效期
+    private String pin_time;
     private String email;
-    private String phone;
-    private String sex;//性别
-    private String birthday;
-    private String qq;
-    private String wechat;
 }
