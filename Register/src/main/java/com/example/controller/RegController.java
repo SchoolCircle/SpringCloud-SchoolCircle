@@ -24,13 +24,13 @@ public class RegController {
         System.out.println(email);
         return regService.sendEmail(email);
     }
-//    @PostMapping("/reg")
-//    public Result<List<User>> reg(@RequestBody RegRequest regRequest){
-//        String email = regRequest.getEmail();
-//        String password = regRequest.getPassword();
-//        String pin = regRequest.getPin();
-//        if(email==null||password==null||pin==null)
-//            return new Result<>("传入参数不足", 201);
-//
-//    }
+    @PostMapping("/reg")
+    public Result<List<User>> reg(@RequestBody RegRequest regRequest){
+        String email = regRequest.getEmail();
+        String password = regRequest.getPassword();
+        String pin = regRequest.getPin();
+        if(email==null||password==null||pin==null)
+            return new Result<>("传入参数不足", 201);
+        return regService.Reg(email,password,pin);
+    }
 }
