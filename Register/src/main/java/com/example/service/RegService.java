@@ -48,14 +48,15 @@ public class RegService {
         } else {//用户还未存在，给予一个默认用户
             user = new User();
             user.setEmail(email);
+            //TODO 此处待修改token生成机制
+            user.setToken("123");
             isUserHad = false;
         }
         //待修改,发验证码
         user.setPin("123456");
         Date now = new Date();
         user.setPin_time(Sdf.sdf.format(new Date(now.getTime()+ 600000)));
-        List<User> list = new ArrayList<>();
-        list.add(SaveUser(user));
+        SaveUser(user);
 
         if(!isUserHad)
         {
@@ -66,7 +67,7 @@ public class RegService {
             userInfo.setUname("游客"+code);
             SaveUserInfo(userInfo);
         }
-        return new Result<>(list);
+        return new Result<>("success", 200);
     }
 //    public Result<User> Reg(String email, String password, String pin)
 //    {
