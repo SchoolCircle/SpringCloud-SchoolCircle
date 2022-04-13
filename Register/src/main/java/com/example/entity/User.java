@@ -27,4 +27,5 @@ public class User {
     @JsonIgnore
     private String pin_time;
     private String email;
+    private String token;
 }

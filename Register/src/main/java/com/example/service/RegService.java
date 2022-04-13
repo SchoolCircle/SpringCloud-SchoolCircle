@@ -2,11 +2,14 @@ package com.example.service;
 
 import com.example.entity.Result;
 import com.example.entity.User;
+import com.example.entity.UserInfo;
+import com.example.repository.UserInfoRepository;
 import com.example.repository.UserRepository;
 import com.example.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +19,23 @@ public class RegService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+
+
     private User SaveUser(User user) {
         return userRepository.save(user);
     }
+
+    /**
+     * 保存用户信息
+     * @return UserInfo
+     */
+    private UserInfo SaveUserInfo(UserInfo userInfo){
+        return userInfoRepository.save(userInfo);
+    }
+
+
     /**
      * 发生注册或者重置密码的验证码
      */
@@ -40,11 +57,22 @@ public class RegService {
         List<User> list = new ArrayList<>();
         list.add(SaveUser(user));
 
-//        if(!isUserHad)
-//        {
-//            //待补充，创建一条用户信息的记录
-//        }
-
+        if(!isUserHad)
+        {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setEmail(email);
+            userInfo.setId(user.getUid());
+            int code = (int) ((Math.random() * 9 + 1) * 1000000);
+            userInfo.setUname("游客"+code);
+            SaveUserInfo(userInfo);
+        }
         return new Result<>(list);
     }
+//    public Result<User> Reg(String email, String password, String pin)
+//    {
+//        if(!userRepository.existsUserByEmail(email))
+//            return new Result<>("邮箱不存在", 201);
+//        User user = userRepository.findUserByEmail(email);
+//
+//    }
 }

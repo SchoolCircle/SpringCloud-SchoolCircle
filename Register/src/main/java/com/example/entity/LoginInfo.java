@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "login_inform")
-public class LoginInform {
+@Table(name = "login_info")
+public class LoginInfo {
     @Id
     @Column(name = "uid", nullable = false)
     private Integer id;
