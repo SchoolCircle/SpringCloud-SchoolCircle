@@ -12,6 +12,7 @@
         <module name="Register" />
         <module name="Gateway" />
         <module name="Playground" />
+        <module name="Relationship" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

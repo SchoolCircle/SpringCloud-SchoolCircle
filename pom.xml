@@ -13,7 +13,8 @@
         <module>Gateway</module>
         <module>Chat</module>
         <module>Playground</module>
-<!--        <module>Nacos</module>-->
+        <module>Relationship</module>
+        <!--        <module>Nacos</module>-->
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
