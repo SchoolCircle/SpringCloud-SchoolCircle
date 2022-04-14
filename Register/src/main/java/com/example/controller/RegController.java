@@ -37,7 +37,7 @@ public class RegController {
         String pin = regRequest.getPin();
         if (email == null || password == null || pin == null)
             return new Result<>("传入参数不足", 201);
-        return regService.Reg(email, password, pin);
+        return regService.reg(email, password, pin);
     }
 
     @PostMapping("/login")
@@ -48,5 +48,15 @@ public class RegController {
             return new Result<>("传入参数不足", 201);
         }
         return loginService.login(email,password);
+    }
+
+    @PostMapping("/resetPassword")
+    public Result<List<User>> resetPassword(@RequestBody RegRequest regRequest) {
+        String email = regRequest.getEmail();
+        String password = regRequest.getPassword();
+        String pin = regRequest.getPin();
+        if (email == null || password == null || pin == null)
+            return new Result<>("传入参数不足", 201);
+        return regService.reg(email, password, pin);
     }
 }

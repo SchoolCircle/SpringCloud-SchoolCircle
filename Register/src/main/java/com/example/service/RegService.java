@@ -10,12 +10,8 @@ import com.example.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.PublicKey;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class RegService {
@@ -39,7 +35,18 @@ public class RegService {
         return userInfoRepository.save(userInfo);
     }
 
-
+    private boolean checkTime(String tagTime)
+    {
+        try {
+            Date tagDate = Sdf.sdf.parse(tagTime);//有效期
+            if (tagDate.after(new Date())) {//有效期在当前时间之后
+                return true;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     /**
      * 发生注册或者重置密码的验证码
      */
@@ -73,24 +80,18 @@ public class RegService {
         return new Result<>("success", 200);
     }
 
-    public Result<List<User>> Reg(String email, String password, String pin) {
+    public Result<List<User>> reg(String email, String password, String pin) {
         if (!userRepository.existsUserByEmail(email))
             return new Result<>("邮箱不存在", 201);
         User user = userRepository.findUserByEmail(email);
-        try {
-            Date tagDate = Sdf.sdf.parse(user.getPin_time());//有效期
-            if (tagDate.before(new Date())) {//有效期在当前时间之前
-                return new Result<>("验证码已过期", 201);
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        if(!checkTime(user.getPin_time()))
+            return new Result<>("验证码已过期", 201);
         if (!Objects.equals(pin, user.getPin())) {
             return new Result<>("验证码错误", 201);
         }
         user.setPassword(Md5.md5(password,email));
-        List<User> list = new ArrayList<>();
-        list.add(SaveUser(user));
-        return new Result<>(list);
+        user = SaveUser(user);
+        return new Result<>(Collections.singletonList(user));
     }
+
 }
