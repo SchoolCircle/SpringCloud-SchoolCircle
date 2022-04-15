@@ -1,4 +1,4 @@
-package com.example.entity.Request;
+package com.example.entity.request;
 
 import lombok.Data;
 

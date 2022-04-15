@@ -1,8 +1,8 @@
 package com.example.controller;
 
-import com.example.entity.Request.EmailRequest;
-import com.example.entity.Request.LoginRequest;
-import com.example.entity.Request.RegRequest;
+import com.example.entity.request.EmailRequest;
+import com.example.entity.request.LoginRequest;
+import com.example.entity.request.RegRequest;
 import com.example.entity.Result;
 import com.example.entity.User;
 import com.example.service.LoginService;

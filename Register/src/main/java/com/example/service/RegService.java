@@ -63,7 +63,7 @@ public class RegService {
             user.setToken("123");
             isUserHad = false;
         }
-        //待修改,发验证码
+        //TODO ,发验证码
         user.setPin("123456");
         Date now = new Date();
         user.setPin_time(Sdf.sdf.format(new Date(now.getTime() + 600000)));

@@ -1,6 +1,5 @@
-package com.example.entity.Request;
+package com.example.entity.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data

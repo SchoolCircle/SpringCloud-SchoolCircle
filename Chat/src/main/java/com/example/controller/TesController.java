@@ -1,11 +1,10 @@
 package com.example.controller;
 
-import com.example.entity.Request.TesRequest;
+import com.example.entity.request.TesRequest;
 import com.example.entity.Result;
 import com.example.entity.Tes;
 import com.example.service.TesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +18,11 @@ public class TesController {
     @Autowired
     private TesService tesService;
 
-    @GetMapping("/hello")
+    @GetMapping("/tes/hello")
     public String hello(){
         return "hello";
     }
-    @PostMapping("/findById")
+    @PostMapping("/tes/findById")
     public Result<List<Tes>> findById(@RequestBody TesRequest tesRequest)
     {
         Tes tes = tesService.findTesById(tesRequest.getId());
