@@ -6,4 +6,20 @@
     <select id="findAllChat" resultType="com.example.entity.Chat">
         select * from school_circle.chat;
     </select>
+
+    <select id="findByUid2" resultType="com.example.entity.Chat" parameterType="com.example.entity.query.ChatQuery">
+        select *
+        from school_circle.chat
+        <where>
+            <if test="uid_from !=0">
+                and uid_from=#{uid_from}
+            </if>
+            <if test="uid_to != 0">
+                and uid_to=#{uid_to}
+            </if>
+        </where>
+        ;
+    </select>
+
+
 </mapper>

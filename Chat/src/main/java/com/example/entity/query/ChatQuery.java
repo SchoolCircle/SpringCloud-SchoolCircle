@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class ChatQuery {
     private Integer pageNum = 1;//当前页码
     private Integer pageSize = 2;//每页记录数
-    private Integer id1;//用户id1
-    private Integer id2;//用户id2
+    private Integer uid_from;//用户id1
+    private Integer uid_to;//用户id2
 }
