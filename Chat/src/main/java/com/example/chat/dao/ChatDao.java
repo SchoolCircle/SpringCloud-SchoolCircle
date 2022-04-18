@@ -15,4 +15,6 @@ public interface ChatDao {
 
 //    //根据用户id查询
     public List<Chat> findByUid2(ChatQuery chatQuery);
+
+    public int addChat(Chat chat);
 }

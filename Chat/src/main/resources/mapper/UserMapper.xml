@@ -6,4 +6,9 @@
     <select id="findByUid" resultType="com.example.chat.entity.User" parameterType="integer">
         select uid,email,token from school_circle.user where uid=#{uid};
     </select>
+
+    <!--查询uid是否存在-->
+    <select id="existByUid" resultType="boolean" parameterType="integer">
+        select (select count(uid) from user where uid=#{uid})>0;
+    </select>
 </mapper>

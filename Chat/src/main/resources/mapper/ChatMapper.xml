@@ -4,10 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.chat.dao.ChatDao">
     <select id="findAllChat" resultType="com.example.chat.entity.Chat">
-        select * from school_circle.chat;
+        select *
+        from school_circle.chat;
     </select>
 
-    <select id="findByUid2" resultType="com.example.chat.entity.Chat" parameterType="com.example.chat.entity.query.ChatQuery">
+    <select id="findByUid2" resultType="com.example.chat.entity.Chat"
+            parameterType="com.example.chat.entity.query.ChatQuery">
         select *
         from school_circle.chat
         <where>
@@ -21,5 +23,11 @@
         ;
     </select>
 
+    <insert id="addChat"
+            parameterType="com.example.chat.entity.Chat"
+            useGeneratedKeys="true" keyProperty="chat_id">
+        insert into chat(uid_from, uid_to, text, time)
+        values (#{uid_from}, #{uid_to}, #{text}, #{time});
+    </insert>
 
 </mapper>
