@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.dao.TesDao">
-    <select id="getTesById" resultType="Tes">
+<mapper namespace="com.example.chat.dao.TesDao">
+    <select id="getTesById" resultType="com.example.chat.entity.Tes">
         select * from tes where id=#{id};
     </select>
 </mapper>

@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.dao.ChatDao">
-    <select id="findAllChat" resultType="com.example.entity.Chat">
+<mapper namespace="com.example.chat.dao.ChatDao">
+    <select id="findAllChat" resultType="com.example.chat.entity.Chat">
         select * from school_circle.chat;
     </select>
 
-    <select id="findByUid2" resultType="com.example.entity.Chat" parameterType="com.example.entity.query.ChatQuery">
+    <select id="findByUid2" resultType="com.example.chat.entity.Chat" parameterType="com.example.chat.entity.query.ChatQuery">
         select *
         from school_circle.chat
         <where>
