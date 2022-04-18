@@ -24,6 +24,6 @@ public class Controller {
     @PostMapping("/getChat")
     public Result<List<Chat>> getChat(@RequestBody GetChatRequest getChatRequest)
     {
-        return chatService.findByUid(getChatRequest.getUid1(), getChatRequest.getUid2());
+        return chatService.findByUid(getChatRequest.getUid1(), getChatRequest.getUid2(),getChatRequest.getToken());
     }
 }
