@@ -30,11 +30,15 @@ public class ChatService {
             return new Result<>("传入参数不足", 201);
         }
         List<User> list = userDao.findByUid(uid1);
-        if (list.isEmpty()) return new Result<>("用户不存在", 201);
-        if (!list.get(0).getToken().equals(token)) {
-            return new Result<>("无权查看该用户记录", 201);
+        List<User> list2 = userDao.findByUid(uid2);
+        boolean isFind = ((!list.isEmpty() && list.get(0).getToken().equals(token)) || (!list2.isEmpty() && list2.get(0).getToken().equals(token)));
+        if (!(
+                (!list.isEmpty() && list.get(0).getToken().equals(token))//uid1的token匹配
+                        || (!list2.isEmpty() && list2.get(0).getToken().equals(token))//uid2的token匹配
+        )
+        ) {
+            return new Result<>("无权查看记录", 201);
         }
-        //TODO 待修改，应该是两个人都有权限查看，这里只实现了一个人有权限
         ChatQuery chatQuery = new ChatQuery();
         chatQuery.setUid_from(uid1);
         chatQuery.setUid_to(uid2);
@@ -42,10 +46,9 @@ public class ChatService {
         return new Result<>(chatDao.findByUid2(chatQuery));
     }
 
-    public Result<List<Chat>> addChat(Integer uid1, Integer uid2, String token, String text)
-    {
+    public Result<List<Chat>> addChat(Integer uid1, Integer uid2, String token, String text) {
         Chat chat = new Chat();
-        if (uid1 == null || uid2 == null || token == null||text==null) {
+        if (uid1 == null || uid2 == null || token == null || text == null) {
             return new Result<>("传入参数不足", 201);
         }
         List<User> list = userDao.findByUid(uid1);
@@ -53,7 +56,7 @@ public class ChatService {
         if (!list.get(0).getToken().equals(token)) {
             return new Result<>("无权发送信息", 201);
         }
-        if(!userDao.existByUid(uid2)){
+        if (!userDao.existByUid(uid2)) {
             return new Result<>("对方用户不存在", 201);
         }
         chat.setUid_from(uid1);
@@ -61,7 +64,7 @@ public class ChatService {
         chat.setText(text);
         chat.setTime(Sdf.sdf.format(new Date()));
         int res = chatDao.addChat(chat);
-        if(res==0)
+        if (res == 0)
             return new Result<>("发送失败", 201);
         return new Result<>(Collections.singletonList(chat));
     }
