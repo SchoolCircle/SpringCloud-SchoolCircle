@@ -1,10 +1,5 @@
-/**
- *
- * @author KEPADEDAIDAI
- * @date 2022/3/10 15:49
- */
-package com.example.register.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.example.entity;
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -12,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Data
 @Entity
 public class User {
