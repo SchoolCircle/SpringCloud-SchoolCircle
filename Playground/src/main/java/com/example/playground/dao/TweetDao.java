@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface TweetDao {
     public List<Tweet> findAll();
+
+    public int addTweet(Tweet tweet);
 }

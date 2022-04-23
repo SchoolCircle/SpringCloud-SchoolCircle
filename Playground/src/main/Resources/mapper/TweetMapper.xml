@@ -7,4 +7,11 @@
         select *
         from tweet;
     </select>
+
+    <insert id="addTweet"
+            parameterType="com.example.playground.entity.Tweet"
+            useGeneratedKeys="true" keyProperty="tid">
+        insert into tweet(uid, time, type, text)
+        values (#{uid}, #{time}, #{type}, #{text});
+    </insert>
 </mapper>

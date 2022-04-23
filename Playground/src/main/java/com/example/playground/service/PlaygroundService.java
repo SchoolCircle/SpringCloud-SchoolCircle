@@ -3,9 +3,12 @@ package com.example.playground.service;
 import com.example.playground.dao.TweetDao;
 import com.example.playground.entity.Result;
 import com.example.playground.entity.Tweet;
+import com.example.playground.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,5 +18,19 @@ public class PlaygroundService {
 
     public Result<List<Tweet>> findAll(){
         return new Result<>(tweetDao.findAll());
+    }
+
+    public Result<List<Tweet>> addTweet(Integer uid, String text, String token){
+        //TODO 权限验证
+        Tweet tweet = new Tweet();
+        tweet.setUid(uid);
+        tweet.setText(text);
+        tweet.setType(1); //TODO 传参时添加类型
+        tweet.setTime(Sdf.sdf.format(new Date()));
+
+        int ans = tweetDao.addTweet(tweet);
+        if(ans==0) return new Result<>("添加失败", 201);
+        tweet.setTid(ans);
+        return new Result<>(Collections.singletonList(tweet));
     }
 }
