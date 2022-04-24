@@ -4,17 +4,16 @@ spring:
     username: daidai
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: 123456
+  jpa:
+    show-sql: true
+
   application:
-    name: Chat
+    name: ship
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
 
-mybatis:
-  mapper-locations: classpath:/mapper/*.xml
-  type-aliases-package: com.example.chat.entity
-  ## mybatis.mapper-locations= classpath:mapper/*.xml,classpath:mapper/user/*.xml
-
 server:
-  port: 8004
+  port: 8006
+

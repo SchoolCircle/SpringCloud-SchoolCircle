@@ -1,11 +1,11 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    username: ******
+    url: jdbc:mysql://localhost:3306/school_circle?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: daidai
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ******
+    password: 123456
   application:
-    name: Playground
+    name: ground
   cloud:
     nacos:
       discovery:
@@ -13,7 +13,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
-  type-aliases-package: com.example.entity
+  type-aliases-package: com.example.playground.entity
   ## mybatis.mapper-locations= classpath:mapper/*.xml,classpath:mapper/user/*.xml
 
 server:
