@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Common-api" />
+        <module name="comment-api" />
         <module name="Register" />
         <module name="Gateway" />
         <module name="Relationship" />
