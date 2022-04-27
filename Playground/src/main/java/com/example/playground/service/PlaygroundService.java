@@ -2,6 +2,7 @@ package com.example.playground.service;
 
 import com.example.playground.dao.CommentDao;
 import com.example.playground.dao.TweetDao;
+import com.example.playground.dao.UserDao;
 import com.example.playground.entity.Comment;
 import com.example.playground.entity.Result;
 import com.example.playground.entity.Tweet;
@@ -21,12 +22,19 @@ public class PlaygroundService {
     @Autowired
     private CommentDao commentDao;
 
+    private UserDao userDao;
     public Result<List<Tweet>> findAll(){
         return new Result<>(tweetDao.findAll());
     }
 
     public Result<List<Tweet>> addTweet(Integer uid, String text, String token){
-        //TODO 权限验证
+        if(!userDao.existByUid(uid)){
+            return new Result<>("用户不存在", 201);
+        }
+        String need = userDao.getToken(uid).get(0);
+        if(!need.equals(token)){
+            return new Result<>("无权发布信息",201);
+        }
         Tweet tweet = new Tweet();
         tweet.setUid(uid);
         tweet.setText(text);
@@ -40,7 +48,13 @@ public class PlaygroundService {
     }
     public Result<List<Comment>> addComment(Integer uid, Integer tid, String text, String token)
     {
-        //TODO 权限验证
+        if(!userDao.existByUid(uid)){
+            return new Result<>("用户不存在", 201);
+        }
+        String need = userDao.getToken(uid).get(0);
+        if(!need.equals(token)){
+            return new Result<>("无权发布信息",201);
+        }
         Comment comment = new Comment();
 //        comment.set_alive(true);//前端不显示该值，所以不需要处理
         comment.setText(text);
