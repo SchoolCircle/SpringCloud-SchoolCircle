@@ -25,7 +25,7 @@ public class Controller {
         return playgroundService.findAll();
     }
 
-    @PostMapping("/addTweet")//TODO 函数待验证
+    @PostMapping("/addTweet")
     public Result<List<Tweet>> addTweet(@RequestBody TweetRequest tweetRequest) {
         if (tweetRequest.getText() == null || tweetRequest.getToken() == null || tweetRequest.getUid() == null) {
             return new Result<>("传入参数不足", 201);
@@ -34,7 +34,7 @@ public class Controller {
         return playgroundService.addTweet(tweetRequest.getUid(), tweetRequest.getText(), tweetRequest.getToken());
     }
 
-    @PostMapping("/addComment")//TODO 函数待验证
+    @PostMapping("/addComment")
     public Result<List<Comment>> addComment(@RequestBody CommentRequest commentRequest) {
         if (commentRequest.getText() == null || commentRequest.getTid() == null
                 || commentRequest.getToken() == null || commentRequest.toString() == null) {
