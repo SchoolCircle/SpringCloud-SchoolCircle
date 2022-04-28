@@ -12,4 +12,6 @@ public interface TweetDao {
     public List<Tweet> findAll();
 
     public int addTweet(Tweet tweet);
+
+    public boolean existByTid(Integer tid);
 }

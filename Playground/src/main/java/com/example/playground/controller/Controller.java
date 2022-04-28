@@ -30,6 +30,7 @@ public class Controller {
         if (tweetRequest.getText() == null || tweetRequest.getToken() == null || tweetRequest.getUid() == null) {
             return new Result<>("传入参数不足", 201);
         }
+        System.out.println("uid ="+tweetRequest.getUid().toString() + " token="+tweetRequest.getToken()+" text="+tweetRequest.getText());
         return playgroundService.addTweet(tweetRequest.getUid(), tweetRequest.getText(), tweetRequest.getToken());
     }
 

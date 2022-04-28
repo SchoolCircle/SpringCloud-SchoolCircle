@@ -22,7 +22,10 @@ public class PlaygroundService {
     @Autowired
     private CommentDao commentDao;
 
+    @Autowired
     private UserDao userDao;
+
+
     public Result<List<Tweet>> findAll(){
         return new Result<>(tweetDao.findAll());
     }
@@ -54,6 +57,9 @@ public class PlaygroundService {
         String need = userDao.getToken(uid).get(0);
         if(!need.equals(token)){
             return new Result<>("无权发布信息",201);
+        }
+        if(!tweetDao.existByTid(tid)){
+            return new Result<>("帖子不存在", 201);
         }
         Comment comment = new Comment();
 //        comment.set_alive(true);//前端不显示该值，所以不需要处理
