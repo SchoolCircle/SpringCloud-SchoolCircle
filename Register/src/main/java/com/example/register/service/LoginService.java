@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,9 +20,12 @@ public class LoginService {
             return new Result<>("用户不存在", 201);
         }
         User user = userRepository.findUserByEmail(email);
-        if(!user.getPassword().equals(Md5.md5(password, email))){
+
+        if(!user.getPassword().equals(Md5.md5(password+email))){
             return new Result<>("密码错误", 201);
         }
+        user.setToken(Md5.md5(password+email+ new Date()));
+        user = userRepository.save(user);
         return new Result<>(Collections.singletonList(user));
     }
 }

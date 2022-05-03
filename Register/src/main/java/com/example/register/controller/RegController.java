@@ -44,7 +44,7 @@ public class RegController {
     public Result<List<User>> login(@RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-        if (email==null || password==null) {
+        if (email==null || password==null||email.equals("")||password.equals("")) {
             return new Result<>("传入参数不足", 201);
         }
         return loginService.login(email,password);

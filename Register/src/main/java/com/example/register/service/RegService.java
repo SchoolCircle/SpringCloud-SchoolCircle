@@ -59,8 +59,7 @@ public class RegService {
         } else {//用户还未存在，给予一个默认用户
             user = new User();
             user.setEmail(email);
-            //TODO 此处待修改token生成机制
-            user.setToken("123");
+            user.setToken(Md5.md5(String.valueOf(Math.random()*1000000)+new Date().toString()));//随机生成一个无意义的token占位
             isUserHad = false;
         }
         //TODO ,发验证码
@@ -89,7 +88,7 @@ public class RegService {
         if (!Objects.equals(pin, user.getPin())) {
             return new Result<>("验证码错误", 201);
         }
-        user.setPassword(Md5.md5(password,email));
+        user.setPassword(Md5.md5(password+email));
         user = SaveUser(user);
         return new Result<>(Collections.singletonList(user));
     }
