@@ -26,17 +26,17 @@ public class PlaygroundService {
     private UserDao userDao;
 
 
-    public Result<List<Tweet>> findAll(){
+    public Result<List<Tweet>> findAll() {
         return new Result<>(tweetDao.findAll());
     }
 
-    public Result<List<Tweet>> addTweet(Integer uid, String text, String token){
-        if(!userDao.existByUid(uid)){
+    public Result<List<Tweet>> addTweet(Integer uid, String text, String token) {
+        if (!userDao.existByUid(uid)) {
             return new Result<>("用户不存在", 201);
         }
         String need = userDao.getToken(uid).get(0);
-        if(!need.equals(token)){
-            return new Result<>("无权发布信息",201);
+        if (!need.equals(token)) {
+            return new Result<>("无权发布信息", 201);
         }
         Tweet tweet = new Tweet();
         tweet.setUid(uid);
@@ -45,20 +45,20 @@ public class PlaygroundService {
         tweet.setTime(Sdf.sdf.format(new Date()));
 
         int ans = tweetDao.addTweet(tweet);
-        if(ans==0) return new Result<>("添加失败", 201);
+        if (ans == 0) return new Result<>("添加失败", 201);
         tweet.setTid(ans);
         return new Result<>(Collections.singletonList(tweet));
     }
-    public Result<List<Comment>> addComment(Integer uid, Integer tid, String text, String token)
-    {
-        if(!userDao.existByUid(uid)){
+
+    public Result<List<Comment>> addComment(Integer uid, Integer tid, String text, String token) {
+        if (!userDao.existByUid(uid)) {
             return new Result<>("用户不存在", 201);
         }
         String need = userDao.getToken(uid).get(0);
-        if(!need.equals(token)){
-            return new Result<>("无权发布信息",201);
+        if (!need.equals(token)) {
+            return new Result<>("无权发布信息", 201);
         }
-        if(!tweetDao.existByTid(tid)){
+        if (!tweetDao.existByTid(tid)) {
             return new Result<>("帖子不存在", 201);
         }
         Comment comment = new Comment();
@@ -68,10 +68,35 @@ public class PlaygroundService {
         comment.setUid(uid);//发帖用户
         comment.setTime(Sdf.sdf.format(new Date()));//当前时间设定为
         int ans = commentDao.addComment(comment);
-        if(ans==0)
-        {
+        if (ans == 0) {
             return new Result<>("添加失败", 201);
         }
         return new Result<>(Collections.singletonList(comment));
     }
+
+    //查看别人的发帖
+    public Result<List<Tweet>> findTweetByUid(Integer uid) {
+        if (!userDao.existByUid(uid)) {
+            return new Result<>("用户不存在", 201);
+        }
+        return new Result<>(tweetDao.findAliveTweetByUid(uid));
+    }
+
+    //查看自己发帖
+    public Result<List<Tweet>> findMyTweet(Integer uid, String token) {
+        if (!userDao.existByUid(uid)) {//用户查询
+            return new Result<>("用户不存在", 201);
+        }
+        try {//权限验证
+            String need = userDao.findByUid(uid).get(0).getToken();
+            if (!token.equals(need)) {
+                return new Result<>("无权访问", 201);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("下标越界，没有找到用户");
+            return new Result<>("用户不存在", 201);
+        }
+        return new Result<>(tweetDao.findAllTweetByUid(uid));
+    }
+
 }

@@ -6,7 +6,7 @@
     <select id="findAll" resultType="com.example.playground.entity.Tweet">
         select *
         from tweet
-        where is_alive=1;
+        where is_alive = 1;
     </select>
 
     <insert id="addTweet"
@@ -18,6 +18,21 @@
 
     <!--查询帖子是否存在，并且未被删除-->
     <select id="existByTid" resultType="boolean" parameterType="integer">
-        select (select count(tid) from tweet where tid=#{tid} and is_alive = 1) > 0;
+        select (select count(tid) from tweet where tid = #{tid} and is_alive = 1) > 0;
+    </select>
+
+    <select id="findAllTweetByUid" resultType="com.example.playground.entity.Tweet"
+            parameterType="integer">
+        select *
+        from tweet
+        where uid = #{uid};
+    </select>
+
+    <select id="findAliveTweetByUid" resultType="com.example.playground.entity.Tweet"
+            parameterType="integer">
+        select *
+        from tweet
+        where uid = #{uid}
+          and is_alive = 1;
     </select>
 </mapper>

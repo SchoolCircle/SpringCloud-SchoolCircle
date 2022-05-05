@@ -14,4 +14,19 @@ public interface TweetDao {
     public int addTweet(Tweet tweet);
 
     public boolean existByTid(Integer tid);
+
+    /**
+     * 按照用户id查找,会返回已删除的帖子
+     * 建议只能用户自己调用
+     * @param uid
+     * @return List
+     */
+    public List<Tweet> findAllTweetByUid(Integer uid);
+
+    /**
+     * 按照用户id查找，不会返回已删除的帖子
+     * @param uid
+     * @return List
+     */
+    public List<Tweet> findAliveTweetByUid(Integer uid);
 }

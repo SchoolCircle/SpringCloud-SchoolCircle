@@ -14,8 +14,7 @@ public class Tweet {
     private Integer tid;
     private Integer uid;
     private String time;
-    private Integer type;
+    private Integer type;//类型暂无作用
     private String text;
-    @JsonIgnore
-    private boolean is_alive;
+    private boolean is_alive; //是否被删除
 }
