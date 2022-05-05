@@ -5,7 +5,8 @@
 <mapper namespace="com.example.playground.dao.TweetDao">
     <select id="findAll" resultType="com.example.playground.entity.Tweet">
         select *
-        from tweet;
+        from tweet
+        where is_alive=1;
     </select>
 
     <insert id="addTweet"
