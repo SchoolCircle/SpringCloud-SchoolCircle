@@ -8,8 +8,10 @@ import com.example.register.repository.UserRepository;
 import com.example.register.utils.Md5;
 import com.example.register.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
-
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import java.text.ParseException;
 import java.util.*;
 
@@ -21,6 +23,17 @@ public class RegService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    @Autowired
+    private JavaMailSenderImpl mailSender;//发邮件接口
+
+    public void sendTxtMail(){
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo("1669704372@qq.com");
+        simpleMailMessage.setFrom("kepadedaidai@163.com");
+        simpleMailMessage.setSubject("测试文本");
+        simpleMailMessage.setText("测试正文");
+        mailSender.send(simpleMailMessage);
+    }
 
     private User SaveUser(User user) {
         return userRepository.save(user);
