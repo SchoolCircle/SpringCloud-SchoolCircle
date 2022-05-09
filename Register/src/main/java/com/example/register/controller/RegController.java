@@ -60,9 +60,9 @@ public class RegController {
             return new Result<>("传入参数不足", 201);
         return regService.reg(email, password, pin);
     }
-    @GetMapping("/sendMailTest")
-    public String sendMail(){
-//        regService.sendTxtMail();
-        return "success";
-    }
+//    @GetMapping("/sendMailTest")
+//    public String sendMail(){
+////        regService.sendTxtMail();
+//        return "success";
+//    }
 }
