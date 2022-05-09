@@ -62,7 +62,7 @@ public class RegController {
     }
     @GetMapping("/sendMailTest")
     public String sendMail(){
-        regService.sendTxtMail();
+//        regService.sendTxtMail();
         return "success";
     }
 }

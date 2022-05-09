@@ -26,12 +26,12 @@ public class RegService {
     @Autowired
     private JavaMailSenderImpl mailSender;//发邮件接口
 
-    public void sendTxtMail(){
+    public void sendTxtMail(String address, String num){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo("1669704372@qq.com");
+        simpleMailMessage.setTo(address);
         simpleMailMessage.setFrom("kepadedaidai@163.com");
-        simpleMailMessage.setSubject("测试文本");
-        simpleMailMessage.setText("测试正文");
+        simpleMailMessage.setSubject("验证码");
+        simpleMailMessage.setText("您的验证码为"+num+",如果不是您进行的操作，请忽略");
         mailSender.send(simpleMailMessage);
     }
 
@@ -75,8 +75,9 @@ public class RegService {
             user.setToken(Md5.md5(String.valueOf(Math.random()*1000000)+new Date().toString()));//随机生成一个无意义的token占位
             isUserHad = false;
         }
-        //TODO ,发验证码
-        user.setPin("123456");
+        String pin = Integer.toString((int)((Math.random()*9+1)*100000));
+        sendTxtMail(email, pin);
+        user.setPin(pin);
         Date now = new Date();
         user.setPin_time(Sdf.sdf.format(new Date(now.getTime() + 600000)));
         SaveUser(user);
