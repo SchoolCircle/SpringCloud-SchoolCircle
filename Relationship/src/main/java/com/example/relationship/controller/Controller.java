@@ -25,7 +25,7 @@ public class Controller {
         return "hello,this is Relationship 8006";
     }
 
-    @PostMapping("/findByUid")//TODO 接口验证
+    @PostMapping("/findByUid")
     public Result<List<Relation>> findByUid(@RequestBody FindRelationRequest findRelationRequest){
         if(findRelationRequest.getUid()==null||findRelationRequest.getToken()==null){
             return new Result<>("传入参数不足",201);
@@ -35,7 +35,7 @@ public class Controller {
 
     }
 
-    @PostMapping("/addRelation")// TODO 接口验证
+    @PostMapping("/addRelation")
     public Result<List<Relation>> addRelation(@RequestBody AddRelationRequest addRelationRequest){
         if(addRelationRequest.getUid1()==null||addRelationRequest.getUid2()==null
                 || addRelationRequest.getToken()==null){

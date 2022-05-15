@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RelationRepository extends JpaRepository<Relation, Integer> {
 
-    List<Relation> findRelationsByUid1AndAndIsAlive(Integer uid1, boolean isAlive);
+    List<Relation> findRelationsByUid1AndAndIsAlive(Integer uid1, Integer isAlive);
 
 
 }

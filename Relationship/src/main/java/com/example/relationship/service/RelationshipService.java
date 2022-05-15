@@ -20,7 +20,7 @@ public class RelationshipService {
 
         //TODO 完成uid存在性验证
 
-        return new Result<>(relationRepository.findRelationsByUid1AndAndIsAlive(uid, true));
+        return new Result<>(relationRepository.findRelationsByUid1AndAndIsAlive(uid, 1));
     }
 
     public Result<List<Relation>> addRelation(Integer uid1, Integer uid2, String token){//添加好友
@@ -29,7 +29,7 @@ public class RelationshipService {
         //TODO 关系已存验证
 
         Relation relation = new Relation();
-        relation.setAlive(true);
+        relation.setIsAlive(1);
         relation.setUid1(uid1);
         relation.setUid2(uid2);
         relation = relationRepository.save(relation);
