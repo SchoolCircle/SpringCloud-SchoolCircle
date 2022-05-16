@@ -1,12 +1,16 @@
 package com.example.relationship.service;
 
+import com.example.relationship.entity.FriendAsk;
 import com.example.relationship.entity.Relation;
 import com.example.relationship.entity.Result;
+import com.example.relationship.repository.FriendAskRepository;
 import com.example.relationship.repository.RelationRepository;
+import com.example.relationship.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,6 +19,15 @@ public class RelationshipService {
     @Autowired
     private RelationRepository relationRepository;
 
+    @Autowired
+    private FriendAskRepository friendAskRepository;
+
+    /**
+     * 查找按照本人的uid查找本人好友
+     * @param uid id
+     * @param token 权限
+     * @return json 好友列表
+     */
     public Result<List<Relation>> findByUid(Integer uid, String token){
         //TODO 完成token验证
 
@@ -23,6 +36,13 @@ public class RelationshipService {
         return new Result<>(relationRepository.findRelationsByUid1AndAndIsAlive(uid, 1));
     }
 
+    /**
+     * 添加好友接口
+     * @param uid1 用户1的uid
+     * @param uid2 用户2的uid
+     * @param token 用户1的权限
+     * @return Result 添加的记录或者错误信息
+     */
     public Result<List<Relation>> addRelation(Integer uid1, Integer uid2, String token){//添加好友
         //TODO token权限验证
 
@@ -38,5 +58,27 @@ public class RelationshipService {
     }
 
 
+    /**
+     * 发起添加好友请求
+     * @param uidFrom 添加好友发起者
+     * @param uidTo   添加好友目标
+     * @param token   发起者权限
+     * @return Result 记录结果
+     */
+    public Result<List<FriendAsk>> addFriendAsk(Integer uidFrom, Integer uidTo, String token){
+        //TODO 关系存在性查询
+        //TODO 用户存在性查询
+        //TODO 权限查询
+        //TODO 相同请求是否存在查询
+        FriendAsk friendAsk = new FriendAsk();
+        friendAsk.setUidFrom(uidFrom);
+        friendAsk.setUidTo(uidTo);
+        friendAsk.setIsFail(0);
+        friendAsk.setIsSuccess(0);
+        friendAsk.setTime(Sdf.sdf.format(new Date()));
+        friendAsk.setIsAlive(1);
+        friendAsk = friendAskRepository.save(friendAsk);
+        return new Result<>(Collections.singletonList(friendAsk));
+    }
 
 }

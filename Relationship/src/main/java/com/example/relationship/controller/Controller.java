@@ -1,7 +1,9 @@
 package com.example.relationship.controller;
 
+import com.example.relationship.entity.FriendAsk;
 import com.example.relationship.entity.Relation;
 import com.example.relationship.entity.Result;
+import com.example.relationship.entity.request.AddFriendAskRequest;
 import com.example.relationship.entity.request.AddRelationRequest;
 import com.example.relationship.entity.request.FindRelationRequest;
 import com.example.relationship.service.RelationshipService;
@@ -20,15 +22,14 @@ public class Controller {
     private RelationshipService relationshipService;
 
     @GetMapping("/hello")
-    public String hello()
-    {
+    public String hello() {
         return "hello,this is Relationship 8006";
     }
 
     @PostMapping("/findByUid")
-    public Result<List<Relation>> findByUid(@RequestBody FindRelationRequest findRelationRequest){
-        if(findRelationRequest.getUid()==null||findRelationRequest.getToken()==null){
-            return new Result<>("传入参数不足",201);
+    public Result<List<Relation>> findByUid(@RequestBody FindRelationRequest findRelationRequest) {
+        if (findRelationRequest.getUid() == null || findRelationRequest.getToken() == null) {
+            return new Result<>("传入参数不足", 201);
         }
         return relationshipService.findByUid(findRelationRequest.getUid(),
                 findRelationRequest.getToken());
@@ -36,13 +37,26 @@ public class Controller {
     }
 
     @PostMapping("/addRelation")
-    public Result<List<Relation>> addRelation(@RequestBody AddRelationRequest addRelationRequest){
-        if(addRelationRequest.getUid1()==null||addRelationRequest.getUid2()==null
-                || addRelationRequest.getToken()==null){
-            return new Result<>("传入参数不足",201);
+    public Result<List<Relation>> addRelation(@RequestBody AddRelationRequest addRelationRequest) {
+        if (addRelationRequest.getUid1() == null || addRelationRequest.getUid2() == null
+                || addRelationRequest.getToken() == null) {
+            return new Result<>("传入参数不足", 201);
         }
         return relationshipService.addRelation(addRelationRequest.getUid1(),
                 addRelationRequest.getUid2(), addRelationRequest.getToken());
     }
 
+
+    //添加好友请求
+    @PostMapping("/addFriendAsk")
+    public Result<List<FriendAsk>> addFriendAsk(@RequestBody AddFriendAskRequest addFriendAskRequest) {
+        if (addFriendAskRequest.getToken() == null || addFriendAskRequest.getUid2() == null
+                || addFriendAskRequest.getUid1() == null) {
+            return new Result<>("传入参数不足", 201);
+        }
+        return relationshipService.addFriendAsk(
+                addFriendAskRequest.getUid1(), addFriendAskRequest.getUid2(),
+                addFriendAskRequest.getToken()
+        );
+    }
 }
