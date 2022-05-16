@@ -3,8 +3,10 @@ package com.example.relationship.service;
 import com.example.relationship.entity.FriendAsk;
 import com.example.relationship.entity.Relation;
 import com.example.relationship.entity.Result;
+import com.example.relationship.entity.User;
 import com.example.relationship.repository.FriendAskRepository;
 import com.example.relationship.repository.RelationRepository;
+import com.example.relationship.repository.UserRepository;
 import com.example.relationship.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,30 @@ public class RelationshipService {
 
     @Autowired
     private FriendAskRepository friendAskRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+    /**
+     * 判断用户是否存在
+     * @param uid 用户id
+     * @return 存在返回true, 不存在返回false
+     */
+    private boolean checkUid(Integer uid){
+        return userRepository.existsUserByUid(uid);
+    }
+
+    /**
+     * 获得用户的token
+     * @param uid 用户id
+     * @return String token
+     */
+    private String getTokenByUid(Integer uid){
+        List<User> list = userRepository.findUsersByUid(uid);
+        if(list.isEmpty()) return "";
+        return list.get(0).getToken();
+    }
 
     /**
      * 查找按照本人的uid查找本人好友
