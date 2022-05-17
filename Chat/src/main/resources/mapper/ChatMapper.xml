@@ -13,12 +13,15 @@
         select *
         from school_circle.chat
         <where>
-            <if test="uid_from !=0">
-                and uid_from=#{uid_from}
-            </if>
-            <if test="uid_to != 0">
-                and uid_to=#{uid_to}
-            </if>
+            (
+            uid_from=#{uid_from}
+            and uid_to=#{uid_to}
+            )
+            or
+            (
+            uid_from=#{uid_to}
+            and uid_to = #{uid_from}
+            )
         </where>
         ;
     </select>
