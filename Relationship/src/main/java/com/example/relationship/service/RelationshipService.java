@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RelationshipService {
@@ -92,9 +93,17 @@ public class RelationshipService {
      * @return Result 记录结果
      */
     public Result<List<FriendAsk>> addFriendAsk(Integer uidFrom, Integer uidTo, String token){
-        //TODO 关系存在性查询
-        //TODO 用户存在性查询
-        //TODO 权限查询
+        //如果两人已经是好友
+        if(relationRepository.existsRelationByUid1AndUid2AndIsAlive(uidFrom,uidTo,1)){
+            return new Result<>("已经是好友",201);
+        }
+        if(!checkUid(uidFrom)||!checkUid(uidTo)){//用户不存在
+            return new Result<>("用户不存在",201);
+        }
+        String need = getTokenByUid(uidFrom);//获得请求的用户的token
+        if(!Objects.equals(need, token)){
+            return new Result<>("无权操作",201);
+        }
         //TODO 相同请求是否存在查询
         FriendAsk friendAsk = new FriendAsk();
         friendAsk.setUidFrom(uidFrom);
