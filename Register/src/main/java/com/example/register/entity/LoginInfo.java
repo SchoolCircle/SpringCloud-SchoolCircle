@@ -11,7 +11,7 @@ import java.time.Instant;
 public class LoginInfo {
     @Id
     @Column(name = "uid", nullable = false)
-    private Integer id;
+    private Integer uid;
 
     @Column(name = "ip")
     private String ip;
@@ -36,10 +36,10 @@ public class LoginInfo {
     }
 
     public Integer getId() {
-        return id;
+        return uid;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.uid = id;
     }
 }

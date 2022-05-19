@@ -1,5 +1,10 @@
 package com.example.register.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,15 +12,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_info")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class UserInfo {
     @Id
-    @Column(name = "uid", nullable = false)
-    private Integer id;
+    @Column(name = "uid")
+    private Integer uid;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "uname", nullable = false)
+    @Column(name = "uname")
     private String uname;
 
     @Column(name = "phone")
@@ -33,67 +42,4 @@ public class UserInfo {
     @Column(name = "college")
     private String college;
 
-    public String getCollege() {
-        return college;
-    }
-
-    public void setCollege(String college) {
-        this.college = college;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getWechat() {
-        return wechat;
-    }
-
-    public void setWechat(String wechat) {
-        this.wechat = wechat;
-    }
-
-    public String getQq() {
-        return qq;
-    }
-
-    public void setQq(String qq) {
-        this.qq = qq;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getUname() {
-        return uname;
-    }
-
-    public void setUname(String uname) {
-        this.uname = uname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 }

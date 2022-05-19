@@ -1,5 +1,6 @@
 package com.example.register.controller;
 
+import com.example.register.entity.UserInfo;
 import com.example.register.entity.request.EmailRequest;
 import com.example.register.entity.request.LoginRequest;
 import com.example.register.entity.request.RegRequest;
@@ -7,11 +8,9 @@ import com.example.register.entity.Result;
 import com.example.register.entity.User;
 import com.example.register.service.LoginService;
 import com.example.register.service.RegService;
+import com.example.register.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +22,9 @@ public class RegController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     @PostMapping("/sendEmail")
     public Result<List<User>> sendEmail(@RequestBody EmailRequest emailRequest) {
@@ -65,4 +67,13 @@ public class RegController {
 ////        regService.sendTxtMail();
 //        return "success";
 //    }
+
+    @GetMapping("findUserInfoByUid/{uid}")
+    public Result<List<UserInfo>> findUserInfoByUid(@PathVariable("uid") Integer uid){
+        if(uid==null)
+        {
+            return new Result<>("传入参数有误",201);
+        }
+        return userInfoService.findUserInfoByUid(uid);
+    }
 }

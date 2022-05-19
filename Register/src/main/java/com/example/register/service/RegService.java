@@ -85,7 +85,7 @@ public class RegService {
         if (!isUserHad) {
             UserInfo userInfo = new UserInfo();
             userInfo.setEmail(email);
-            userInfo.setId(user.getUid());
+            userInfo.setUid(user.getUid());
             int code = (int) ((Math.random() * 9 + 1) * 1000000);
             userInfo.setUname("游客" + code);
             SaveUserInfo(userInfo);
