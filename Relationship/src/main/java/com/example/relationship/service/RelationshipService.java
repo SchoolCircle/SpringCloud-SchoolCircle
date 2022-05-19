@@ -56,9 +56,14 @@ public class RelationshipService {
      * @return json 好友列表
      */
     public Result<List<Relation>> findByUid(Integer uid, String token){
-        //TODO 完成token验证
+        if(!checkUid(uid)){
+            return new Result<>("id不存在", 201);
+        }
+        String need = getTokenByUid(uid);
+        if(!token.equals(need)){
+            return new Result<>("无权访问",201);
+        }
 
-        //TODO 完成uid存在性验证
 
         return new Result<>(relationRepository.findRelationsByUid1AndAndIsAlive(uid, 1));
     }
