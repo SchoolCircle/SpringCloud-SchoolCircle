@@ -23,7 +23,7 @@ public class FollowService {
      * @param uid 被关注的uid
      * @return 关注信息
      */
-    Result<List<Follow>> findFollowedByUid(Integer uid){
+    public Result<List<Follow>> findFollowedByUid(Integer uid){
         if(!userRepository.existsUserByUid(uid)){
             return new Result<>("用户不存在", 201);
         }
@@ -35,7 +35,7 @@ public class FollowService {
      * @param uid 用户id
      * @return 关注信息
      */
-    Result<List<Follow>> findFollowingByUid(Integer uid){
+    public Result<List<Follow>> findFollowingByUid(Integer uid){
         if(!userRepository.existsUserByUid(uid)){
             return new Result<>("用户不存在", 201);
         }
