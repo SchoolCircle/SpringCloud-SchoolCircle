@@ -3,7 +3,9 @@ package com.example.relationship.service;
 import com.example.relationship.entity.Follow;
 import com.example.relationship.entity.Result;
 import com.example.relationship.entity.User;
+import com.example.relationship.entity.UserInfo;
 import com.example.relationship.repository.FollowRepository;
+import com.example.relationship.repository.UserInfoRepository;
 import com.example.relationship.repository.UserRepository;
 import com.example.relationship.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class FollowService {
@@ -22,6 +26,13 @@ public class FollowService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+
+    private Map<Integer, UserInfo> getUserInfoMap(){
+        List<UserInfo> list = userInfoRepository.findAll();
+        return list.stream().collect(Collectors.toMap(UserInfo::getUid, userInfo -> userInfo));
+    }
     //检查token
     private boolean checkToken(String token, Integer uid){
         List<User> list = userRepository.findUsersByUid(uid);
@@ -38,7 +49,13 @@ public class FollowService {
         if(!userRepository.existsUserByUid(uid)){
             return new Result<>("用户不存在", 201);
         }
-        return new Result<>(followRepository.findFollowsByFollowed(uid));
+        List<Follow> list = followRepository.findFollowsByFollowed(uid);
+        Map<Integer, UserInfo> map = getUserInfoMap();
+        for(Follow follow:list){
+            follow.setFollowedMan(map.get(follow.getFollowed()));
+            follow.setFollowingMan(map.get(follow.getFollowing()));
+        }
+        return new Result<>(list);
     }
 
     /**
@@ -50,7 +67,14 @@ public class FollowService {
         if(!userRepository.existsUserByUid(uid)){
             return new Result<>("用户不存在", 201);
         }
-        return new Result<>(followRepository.findFollowsByFollowing(uid));
+//        return new Result<>(followRepository.findFollowsByFollowing(uid));
+        List<Follow> list = followRepository.findFollowsByFollowing(uid);
+        Map<Integer, UserInfo> map = getUserInfoMap();
+        for(Follow follow:list){
+            follow.setFollowedMan(map.get(follow.getFollowed()));
+            follow.setFollowingMan(map.get(follow.getFollowing()));
+        }
+        return new Result<>(list);
     }
 
     /**

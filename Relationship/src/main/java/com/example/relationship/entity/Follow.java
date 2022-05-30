@@ -20,11 +20,19 @@ public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//自动递增
     private Integer fid;
-
+//
     private Integer followed;//被关注
 
     private Integer following;//关注
 
     @Column(name = "f_time")
     private String followTime;//关注时间
+
+    @Transient
+    private UserInfo followedMan;//被关注者
+
+    @Transient
+    private UserInfo followingMan;//关注者
+
+
 }
