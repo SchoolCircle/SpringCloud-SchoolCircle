@@ -46,7 +46,7 @@ public class PlaygroundService {
         tweet.setTitle(title);
         int ans = tweetDao.addTweet(tweet);
         if (ans == 0) return new Result<>("添加失败", 201);
-        tweet.setTid(ans);
+//        tweet.setTid(ans);
         return new Result<>(Collections.singletonList(tweet));
     }
 
