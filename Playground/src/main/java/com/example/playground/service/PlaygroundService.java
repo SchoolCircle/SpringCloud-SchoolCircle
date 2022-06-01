@@ -30,7 +30,7 @@ public class PlaygroundService {
         return new Result<>(tweetDao.findAll());
     }
 
-    public Result<List<Tweet>> addTweet(Integer uid, String text, String token) {
+    public Result<List<Tweet>> addTweet(Integer uid, String text, String token,String title) {
         if (!userDao.existByUid(uid)) {
             return new Result<>("用户不存在", 201);
         }
@@ -43,7 +43,7 @@ public class PlaygroundService {
         tweet.setText(text);
         tweet.setType(1); //TODO 传参时添加类型
         tweet.setTime(Sdf.sdf.format(new Date()));
-
+        tweet.setTitle(title);
         int ans = tweetDao.addTweet(tweet);
         if (ans == 0) return new Result<>("添加失败", 201);
         tweet.setTid(ans);

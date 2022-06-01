@@ -13,4 +13,5 @@ public class TweetRequest {
     private Integer uid;
     private String token;
     private String text;
+    private String title;
 }

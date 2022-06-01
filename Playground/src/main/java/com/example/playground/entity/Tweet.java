@@ -17,4 +17,5 @@ public class Tweet {
     private Integer type;//类型暂无作用
     private String text;
     private boolean is_alive; //是否被删除
+    private String title;//标题
 }
