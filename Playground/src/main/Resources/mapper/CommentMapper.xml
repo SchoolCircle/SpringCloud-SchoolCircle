@@ -9,4 +9,18 @@
         insert into comment(uid,tid,text,time)
         values (#{uid},#{tid}, #{text}, #{time});
     </insert>
+
+    <select id="findCommentsByTid" parameterType="integer" resultType="com.example.playground.entity.Comment">
+        select *
+        from comment
+        where is_alive=1
+        and tid = #{tid};
+    </select>
+
+    <select id="findCommentsByUid" parameterType="integer" resultType="com.example.playground.entity.Comment">
+        select *
+        from comment
+        where is_alive=1
+        and uid = #{uid};
+    </select>
 </mapper>

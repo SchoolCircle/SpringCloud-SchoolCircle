@@ -45,6 +45,7 @@ public class PlaygroundService {
         tweet.setType(1); //TODO 传参时添加类型
         tweet.setTime(Sdf.sdf.format(new Date()));
         tweet.setTitle(title);
+        tweet.set_alive(true);
         int ans = tweetDao.addTweet(tweet);
         if (ans == 0) return new Result<>("添加失败", 201);
 //        tweet.setTid(ans);
