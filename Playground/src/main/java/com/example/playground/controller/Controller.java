@@ -3,10 +3,7 @@ package com.example.playground.controller;
 import com.example.playground.entity.Comment;
 import com.example.playground.entity.Result;
 import com.example.playground.entity.Tweet;
-import com.example.playground.entity.request.CommentRequest;
-import com.example.playground.entity.request.TweetFindMyself;
-import com.example.playground.entity.request.TweetFindUid;
-import com.example.playground.entity.request.TweetRequest;
+import com.example.playground.entity.request.*;
 import com.example.playground.service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,4 +59,18 @@ public class Controller {
         System.out.println("token="+tweetFindMyself.getToken()+"||");
         return playgroundService.findMyTweet(tweetFindMyself.getUid(), tweetFindMyself.getToken());
     }
+    @PostMapping ("/findCommentByTid")
+    public Result<List<Comment>> findCommentByTid(@RequestBody TidAndUidRequest request){
+        if(request.getTid()==null)
+            return new Result<>("传入参数不足",201);
+        return playgroundService.findCommentsByTid(request.getTid());
+    }
+
+    @PostMapping("/findCommentByUid")
+    public Result<List<Comment>> findCommentByUid(@RequestBody TidAndUidRequest request){
+        if(request.getUid()==null)
+            return new Result<>("传入参数不足",201);
+        return playgroundService.findCommentsByUid(request.getUid());
+    }
+
 }

@@ -26,6 +26,7 @@ public class PlaygroundService {
     private UserDao userDao;
 
 
+    // 返回所有有效的帖子
     public Result<List<Tweet>> findAll() {
         return new Result<>(tweetDao.findAll());
     }
@@ -97,6 +98,16 @@ public class PlaygroundService {
             return new Result<>("用户不存在", 201);
         }
         return new Result<>(tweetDao.findAllTweetByUid(uid));
+    }
+
+    // 返回某个帖子下面的所有评论
+    public Result<List<Comment>> findCommentsByTid(Integer tid){
+        return new Result<>(commentDao.findCommentsByTid(tid));
+    }
+
+    // 返回某个人的所有评论
+    public Result<List<Comment>> findCommentsByUid(Integer uid){
+        return new Result<>(commentDao.findCommentsByUid(uid));
     }
 
 }
