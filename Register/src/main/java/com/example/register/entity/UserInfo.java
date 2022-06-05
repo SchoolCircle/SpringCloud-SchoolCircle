@@ -42,4 +42,6 @@ public class UserInfo {
     @Column(name = "college")
     private String college;
 
+    @Column(name = "img")
+    private String img;
 }

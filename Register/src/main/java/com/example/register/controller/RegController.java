@@ -68,7 +68,7 @@ public class RegController {
 //        return "success";
 //    }
 
-    @GetMapping("findUserInfoByUid/{uid}")
+    @GetMapping("/findUserInfoByUid/{uid}")
     public Result<List<UserInfo>> findUserInfoByUid(@PathVariable("uid") Integer uid){
         if(uid==null)
         {
