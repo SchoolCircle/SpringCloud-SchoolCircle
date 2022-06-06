@@ -6,6 +6,7 @@ import com.example.register.entity.request.LoginRequest;
 import com.example.register.entity.request.RegRequest;
 import com.example.register.entity.Result;
 import com.example.register.entity.User;
+import com.example.register.entity.request.UserInfoRequest;
 import com.example.register.service.LoginService;
 import com.example.register.service.RegService;
 import com.example.register.service.UserInfoService;
@@ -75,5 +76,10 @@ public class RegController {
             return new Result<>("传入参数有误",201);
         }
         return userInfoService.findUserInfoByUid(uid);
+    }
+
+    @PostMapping("/resetUserInfo")
+    public Result<List<UserInfo>> resetUserInfo(@RequestBody UserInfoRequest request){
+        return userInfoService.resetUserInfo(request);
     }
 }
