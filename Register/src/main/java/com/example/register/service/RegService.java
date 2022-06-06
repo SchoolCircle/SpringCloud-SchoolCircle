@@ -107,4 +107,10 @@ public class RegService {
         return new Result<>(Collections.singletonList(user));
     }
 
+    // 检查token是否有效
+    public boolean checkToken(String token, Integer uid){
+        if(!userRepository.existsUserByUid(uid)) return false;
+        String need = userRepository.findUserByUid(uid).getToken();
+        return need.equals(token);
+    }
 }
