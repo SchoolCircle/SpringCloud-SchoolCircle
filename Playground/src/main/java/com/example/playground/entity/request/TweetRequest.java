@@ -14,4 +14,6 @@ public class TweetRequest {
     private String token;
     private String text;
     private String title;
+    private Integer haveImg;
+    private String img;
 }

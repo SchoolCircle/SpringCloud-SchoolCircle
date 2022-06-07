@@ -22,7 +22,7 @@ public class Controller {
     private PlaygroundService playgroundService;
 
 
-    @GetMapping("/findAll")//TODO 测试用，最终删除该接口
+    @GetMapping("/findAll")
     public Result<List<Tweet>> findAll() {
         return playgroundService.findAll();
     }
@@ -35,7 +35,7 @@ public class Controller {
         }
 //        System.out.println("uid ="+tweetRequest.getUid().toString() + " token="+tweetRequest.getToken()+" text="+tweetRequest.getText());
         return playgroundService.addTweet(tweetRequest.getUid(), tweetRequest.getText(),
-                tweetRequest.getToken(), tweetRequest.getTitle());
+                tweetRequest.getToken(), tweetRequest.getTitle(),tweetRequest.getHaveImg(),tweetRequest.getImg());
     }
 
     @PostMapping("/addComment")

@@ -19,4 +19,6 @@ public class Tweet {
 //    @JsonIgnore
     private boolean is_alive; //是否被删除
     private String title;//标题
+    private Integer have_img;
+    private String img;
 }

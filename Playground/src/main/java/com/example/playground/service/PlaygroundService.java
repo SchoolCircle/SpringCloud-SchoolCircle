@@ -31,7 +31,7 @@ public class PlaygroundService {
         return new Result<>(tweetDao.findAll());
     }
 
-    public Result<List<Tweet>> addTweet(Integer uid, String text, String token,String title) {
+    public Result<List<Tweet>> addTweet(Integer uid, String text, String token,String title, Integer haveImg, String img) {
         if (!userDao.existByUid(uid)) {
             return new Result<>("用户不存在", 201);
         }
@@ -46,6 +46,14 @@ public class PlaygroundService {
         tweet.setTime(Sdf.sdf.format(new Date()));
         tweet.setTitle(title);
         tweet.set_alive(true);
+        if(haveImg!=null && haveImg==1)
+        {
+            tweet.setHave_img(1);
+            if(img!=null)
+            {
+                tweet.setImg(img);
+            }
+        }
         int ans = tweetDao.addTweet(tweet);
         if (ans == 0) return new Result<>("添加失败", 201);
 //        tweet.setTid(ans);
