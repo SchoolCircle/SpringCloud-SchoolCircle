@@ -86,6 +86,7 @@ public class RegService {
             UserInfo userInfo = new UserInfo();
             userInfo.setEmail(email);
             userInfo.setUid(user.getUid());
+            userInfo.setImg("demo.jpg");
             int code = (int) ((Math.random() * 9 + 1) * 1000000);
             userInfo.setUname("游客" + code);
             SaveUserInfo(userInfo);
