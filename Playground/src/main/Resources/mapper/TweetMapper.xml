@@ -12,8 +12,8 @@
     <insert id="addTweet"
             parameterType="com.example.playground.entity.Tweet"
             useGeneratedKeys="true" keyProperty="tid">
-        insert into tweet(uid, time, type, text, title)
-        values (#{uid}, #{time}, #{type}, #{text}, #{title});
+        insert into tweet(uid, time, type, text, title, have_img, img)
+        values (#{uid}, #{time}, #{type}, #{text}, #{title}, #{have_img}, #{img});
     </insert>
 
     <!--查询帖子是否存在，并且未被删除-->
