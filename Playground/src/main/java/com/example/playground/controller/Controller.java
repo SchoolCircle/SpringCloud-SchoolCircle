@@ -130,7 +130,7 @@ public class Controller {
 
     @PostMapping("/checkFavourite")
     public Result<List<FavResponse>> checkFavourite(@RequestBody TidUidAndTokenRequest request){
-        if(request.getUid()==null || request.getToken()==null){
+        if(request.getUid()==null || request.getTid()==null){
             return new Result<>("传入参数不足", 201);
         }
         return playgroundService.checkFavourite(request.getUid(), request.getTid());

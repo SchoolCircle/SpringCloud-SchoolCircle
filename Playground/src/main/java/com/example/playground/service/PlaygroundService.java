@@ -148,7 +148,7 @@ public class PlaygroundService {
         favourite.setIs_alive(1);
         favourite.setTime(Sdf.sdf.format(new Date().getTime()));
         int res;
-        if(favouriteDao.checkIsFavourite(favourite)){
+        if(favouriteDao.checkHaveFavourite(favourite)){
             res = favouriteDao.addFavouriteUpdate(favourite);// 以前收藏过，更新记录
         }else{
             res = favouriteDao.addFavourite(favourite);// 以前没有收藏过，新建记录
@@ -187,7 +187,7 @@ public class PlaygroundService {
         if(res==1){
             return new Result<>("取消关注成功", 200);
         }
-        return new Result<>("需要关注失败",201);
+        return new Result<>("取消关注失败",201);
     }
 
     // 查找某人收藏的帖子

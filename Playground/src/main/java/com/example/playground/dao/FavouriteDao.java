@@ -15,6 +15,8 @@ public interface FavouriteDao {
 
     boolean checkIsFavourite(Favourite favourite);
 
+    boolean checkHaveFavourite(Favourite favourite);
+
     int addFavouriteUpdate(Favourite favourite);
 
     int delFavourite(Favourite favourite);
