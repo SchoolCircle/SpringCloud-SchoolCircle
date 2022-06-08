@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.playground.dao.FavouriteDao">
+
+    <!--插入新的收藏记录-->
+    <insert id="addFavourite"
+            parameterType="com.example.playground.entity.Favourite"
+            useGeneratedKeys="true" keyProperty="fid">
+        insert into favourite(tid, uid, time, is_alive)
+        values (#{tid}, #{time}, #{time}, #{is_alive});
+    </insert>
+
+    <!--查看某个帖子的收藏数-->
+    <select id="countFavouriteNumByTid" resultType="integer">
+        select count(*)
+        from favourite
+        where tid = #{tid}
+          and is_alive = 1;
+    </select>
+
+    <!--查询某人是否收藏某贴-->
+    <select id="checkIsFavourite" resultType="boolean"
+            parameterType="com.example.playground.entity.Favourite">
+        select (select count(fid)
+                from favourite
+                where tid = #{tid}
+                  and uid = #{uid}
+                  and is_alive = 1) > 0;
+    </select>
+
+    <!--修改收藏，添加收藏-->
+    <update id="addFavouriteUpdate" parameterType="com.example.playground.entity.Favourite">
+        update
+            favourite
+        set is_alive = 1,
+            time     = #{time}
+        where tid = #{tid}
+          and uid = #{uid};
+
+    </update>
+
+    <!--修改收藏，取消收藏-->
+    <update id="delFavourite" parameterType="com.example.playground.entity.Favourite">
+        update
+            favourite
+        set is_alive = 0,
+            time     = #{time}
+        where tid = #{tid}
+          and uid = #{uid};
+    </update>
+
+    <select id="findFavouriteByUid" resultType="com.example.playground.entity.Favourite"
+            parameterType="integer">
+        select *
+        from favourite
+        where is_alive = 1
+          and uid = #{uid};
+    </select>
+
+</mapper>

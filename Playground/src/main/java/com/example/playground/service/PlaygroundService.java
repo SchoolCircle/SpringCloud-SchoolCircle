@@ -1,11 +1,14 @@
 package com.example.playground.service;
 
 import com.example.playground.dao.CommentDao;
+import com.example.playground.dao.FavouriteDao;
 import com.example.playground.dao.TweetDao;
 import com.example.playground.dao.UserDao;
 import com.example.playground.entity.Comment;
+import com.example.playground.entity.Favourite;
 import com.example.playground.entity.Result;
 import com.example.playground.entity.Tweet;
+import com.example.playground.entity.response.FavResponse;
 import com.example.playground.utils.Sdf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class PlaygroundService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private FavouriteDao favouriteDao;
 
     // 返回所有有效的帖子
     public Result<List<Tweet>> findAll() {
@@ -117,6 +122,106 @@ public class PlaygroundService {
     // 返回某个人的所有评论
     public Result<List<Comment>> findCommentsByUid(Integer uid){
         return new Result<>(commentDao.findCommentsByUid(uid));
+    }
+
+    // 收藏帖子
+    public Result<List<Favourite>> addFavourite(Integer uid, Integer tid, String token){
+        if(!userDao.existByUid(uid))
+        {
+            return new Result<>("用户不存在", 201);
+        }
+        if(!tweetDao.existByTid(tid)){
+            return new Result<>("帖子不存在", 201);
+        }
+        try {//权限验证
+            String need = userDao.findByUid(uid).get(0).getToken();
+            if (!token.equals(need)) {
+                return new Result<>("无权访问", 201);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("下标越界，没有找到用户");
+            return new Result<>("用户不存在", 201);
+        }
+        Favourite favourite = new Favourite();
+        favourite.setTid(tid);
+        favourite.setUid(uid);
+        favourite.setIs_alive(1);
+        favourite.setTime(Sdf.sdf.format(new Date().getTime()));
+        int res;
+        if(favouriteDao.checkIsFavourite(favourite)){
+            res = favouriteDao.addFavouriteUpdate(favourite);// 以前收藏过，更新记录
+        }else{
+            res = favouriteDao.addFavourite(favourite);// 以前没有收藏过，新建记录
+        }
+        if(res==1){
+            return new Result<>("收藏成功", 200);
+        }
+        return new Result<>("收藏失败", 201);
+    }
+
+    // 取消收藏
+    public Result<List<Favourite>> delFavourite(Integer uid, Integer tid, String token)
+    {
+        if(!userDao.existByUid(uid))
+        {
+            return new Result<>("用户不存在", 201);
+        }
+        if(!tweetDao.existByTid(tid)){
+            return new Result<>("帖子不存在", 201);
+        }
+        try {//权限验证
+            String need = userDao.findByUid(uid).get(0).getToken();
+            if (!token.equals(need)) {
+                return new Result<>("无权访问", 201);
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("下标越界，没有找到用户");
+            return new Result<>("用户不存在", 201);
+        }
+        Favourite favourite = new Favourite();
+        favourite.setIs_alive(0);
+        favourite.setUid(uid);
+        favourite.setTid(tid);
+        favourite.setTime(Sdf.sdf.format(new Date().getTime()));
+        int res = favouriteDao.delFavourite(favourite);
+        if(res==1){
+            return new Result<>("取消关注成功", 200);
+        }
+        return new Result<>("需要关注失败",201);
+    }
+
+    // 查找某人收藏的帖子
+    public Result<List<Favourite>> findFavouriteByUid(Integer uid, String token)
+    {
+        if(!userDao.existByUid(uid))
+        {
+            return new Result<>("用户不存在", 201);
+        }
+        try {//权限验证
+        String need = userDao.findByUid(uid).get(0).getToken();
+        if (!token.equals(need)) {
+            return new Result<>("无权访问", 201);
+        }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("下标越界，没有找到用户");
+            return new Result<>("用户不存在", 201);
+        }
+        return new Result<>(favouriteDao.findFavouriteByUid(uid));
+    }
+
+    // 检查某人是否收藏某个帖子
+    public Result<List<FavResponse>> checkFavourite(Integer uid, Integer tid)
+    {
+        Favourite favourite = new Favourite();
+        favourite.setUid(uid);
+        favourite.setTid(tid);
+        FavResponse favResponse = new FavResponse();
+        if(favouriteDao.checkIsFavourite(favourite)){
+            favResponse.setIs_favourite(1);
+        }else {
+            favResponse.setIs_favourite(0);
+        }
+        return new Result<>(Collections.singletonList(favResponse));
     }
 
 }

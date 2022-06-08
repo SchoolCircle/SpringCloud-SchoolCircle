@@ -1,10 +1,8 @@
 package com.example.playground.controller;
 
-import com.example.playground.entity.Comment;
-import com.example.playground.entity.Pic;
-import com.example.playground.entity.Result;
-import com.example.playground.entity.Tweet;
+import com.example.playground.entity.*;
 import com.example.playground.entity.request.*;
+import com.example.playground.entity.response.FavResponse;
 import com.example.playground.service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -101,5 +99,40 @@ public class Controller {
             // LOGGER.error(e.toString(), e);
         }
         return new Result<>("fail", 201);
+    }
+
+    //收藏帖子
+    @PostMapping("/addFavourite")
+    public Result<List<Favourite>> addFavourite(@RequestBody TidUidAndTokenRequest request){
+        if(request.getUid()==null || request.getTid()==null || request.getToken()==null){
+            return new Result<>("传入参数不足", 201);
+        }
+        return playgroundService.addFavourite(request.getUid(), request.getTid(),
+                request.getToken());
+    }
+
+    @PostMapping("/delFavourite")
+    public Result<List<Favourite>> delFavourite(@RequestBody TidUidAndTokenRequest request){
+        if(request.getUid()==null || request.getTid()==null || request.getToken()==null){
+            return new Result<>("传入参数不足", 201);
+        }
+        return playgroundService.delFavourite(request.getUid(), request.getTid(),
+                request.getToken());
+    }
+
+    @PostMapping("/findFavouriteByUid")
+    public Result<List<Favourite>> findFavouriteByUid(@RequestBody TidUidAndTokenRequest request){
+        if(request.getUid()==null || request.getToken()==null){
+            return new Result<>("传入参数不足", 201);
+        }
+        return playgroundService.findFavouriteByUid(request.getUid(), request.getToken());
+    }
+
+    @PostMapping("/checkFavourite")
+    public Result<List<FavResponse>> checkFavourite(@RequestBody TidUidAndTokenRequest request){
+        if(request.getUid()==null || request.getToken()==null){
+            return new Result<>("传入参数不足", 201);
+        }
+        return playgroundService.checkFavourite(request.getUid(), request.getTid());
     }
 }
