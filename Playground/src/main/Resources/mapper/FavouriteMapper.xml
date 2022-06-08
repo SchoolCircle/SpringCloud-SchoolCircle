@@ -9,7 +9,7 @@
             parameterType="com.example.playground.entity.Favourite"
             useGeneratedKeys="true" keyProperty="fid">
         insert into favourite(tid, uid, time, is_alive)
-        values (#{tid}, #{time}, #{time}, #{is_alive});
+        values (#{tid}, #{uid}, #{time}, #{is_alive});
     </insert>
 
     <!--查看某个帖子的收藏数-->
@@ -28,6 +28,15 @@
                 where tid = #{tid}
                   and uid = #{uid}
                   and is_alive = 1) > 0;
+    </select>
+
+    <!--查询某人是否收藏 过 某贴-->
+    <select id="checkHaveFavourite" resultType="boolean"
+            parameterType="com.example.playground.entity.Favourite">
+        select (select count(fid)
+                from favourite
+                where tid = #{tid}
+                  and uid = #{uid}) > 0;
     </select>
 
     <!--修改收藏，添加收藏-->

@@ -25,15 +25,24 @@ public class Controller {
         return playgroundService.findAll();
     }
 
+    @PostMapping("/findAllWithType")
+    public Result<List<Tweet>> findAllWithType(@RequestBody TypeRequest request){
+        if(request.getType()==null) return new Result<>("传入参数不足", 201);
+        return playgroundService.findAllWithType(request.getType());
+    }
+
+    //发帖
     @PostMapping("/addTweet")
     public Result<List<Tweet>> addTweet(@RequestBody TweetRequest tweetRequest) {
         if (tweetRequest.getText() == null || tweetRequest.getToken() == null ||
-                tweetRequest.getUid() == null|| tweetRequest.getTitle()==null) {
+                tweetRequest.getUid() == null|| tweetRequest.getTitle()==null ||
+                tweetRequest.getHaveImg()==null||tweetRequest.getType()==null) {
             return new Result<>("传入参数不足", 201);
         }
 //        System.out.println("uid ="+tweetRequest.getUid().toString() + " token="+tweetRequest.getToken()+" text="+tweetRequest.getText());
         return playgroundService.addTweet(tweetRequest.getUid(), tweetRequest.getText(),
-                tweetRequest.getToken(), tweetRequest.getTitle(),tweetRequest.getHaveImg(),tweetRequest.getImg());
+                tweetRequest.getToken(), tweetRequest.getTitle(),tweetRequest.getHaveImg(),
+                tweetRequest.getImg(), tweetRequest.getType());
     }
 
     @PostMapping("/addComment")

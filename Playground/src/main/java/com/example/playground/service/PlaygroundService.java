@@ -36,7 +36,13 @@ public class PlaygroundService {
         return new Result<>(tweetDao.findAll());
     }
 
-    public Result<List<Tweet>> addTweet(Integer uid, String text, String token,String title, Integer haveImg, String img) {
+    //按照类型返回所有有效的帖子
+    public Result<List<Tweet>> findAllWithType(Integer type){
+        return new Result<>(tweetDao.findAllWithType(type));
+    }
+
+    public Result<List<Tweet>> addTweet(Integer uid, String text, String token,
+                                        String title, Integer haveImg, String img, Integer type) {
         if (!userDao.existByUid(uid)) {
             return new Result<>("用户不存在", 201);
         }
@@ -47,17 +53,15 @@ public class PlaygroundService {
         Tweet tweet = new Tweet();
         tweet.setUid(uid);
         tweet.setText(text);
-        tweet.setType(1); //TODO 传参时添加类型
+        tweet.setType(type);
         tweet.setTime(Sdf.sdf.format(new Date()));
         tweet.setTitle(title);
         tweet.set_alive(true);
-        if(haveImg!=null && haveImg==1)
+        tweet.setHave_img(0);
+        if(haveImg!=null && haveImg==1&&img!=null)
         {
             tweet.setHave_img(1);
-            if(img!=null)
-            {
-                tweet.setImg(img);
-            }
+            tweet.setImg(img);
         }
         int ans = tweetDao.addTweet(tweet);
         if (ans == 0) return new Result<>("添加失败", 201);

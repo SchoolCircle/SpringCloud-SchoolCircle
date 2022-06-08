@@ -11,6 +11,8 @@ import java.util.List;
 public interface TweetDao {
     public List<Tweet> findAll();
 
+    List<Tweet> findAllWithType(Integer type);
+
     public int addTweet(Tweet tweet);
 
     public boolean existByTid(Integer tid);

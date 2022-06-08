@@ -9,12 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class TweetRequest {
-    private Integer uid;
-    private String token;
-    private String text;
-    private String title;
-    private Integer haveImg;
-    private String img;
+public class TypeRequest {
     private Integer type;
 }
