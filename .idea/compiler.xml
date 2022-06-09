@@ -8,16 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Common-api" />
-        <module name="comment-api" />
         <module name="Register" />
         <module name="Gateway" />
         <module name="Relationship" />
         <module name="Chat" />
-        <module name="Eureka" />
         <module name="Playground" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="comment-api" target="1.8" />
+      <module name="Eureka" target="1.8" />
       <module name="Nacos" target="8" />
       <module name="Regist" target="8" />
     </bytecodeTargetLevel>

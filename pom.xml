@@ -8,13 +8,11 @@
     <artifactId>SpringCloud-SchoolCircle</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Eureka</module>
         <module>Register</module>
         <module>Gateway</module>
         <module>Chat</module>
         <module>Playground</module>
         <module>Relationship</module>
-        <module>Common-api</module>
     </modules>
     <packaging>pom</packaging>
     <!--统一管理jar包版本-->
