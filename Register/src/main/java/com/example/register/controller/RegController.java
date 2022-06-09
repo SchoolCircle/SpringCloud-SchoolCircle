@@ -72,13 +72,13 @@ public class RegController {
 //        return "success";
 //    }
 
-    @GetMapping("/findUserInfoByUid/{uid}")
-    public Result<List<UserInfo>> findUserInfoByUid(@PathVariable("uid") Integer uid){
-        if(uid==null)
+    @PostMapping("/findUserInfoByUid")
+    public Result<List<UserInfo>> findUserInfoByUid(@RequestBody UidAndTokenRequest request){
+        if(request.getUid()==null)
         {
             return new Result<>("传入参数有误",201);
         }
-        return userInfoService.findUserInfoByUid(uid);
+        return userInfoService.findUserInfoByUid(request.getUid());
     }
 
     @PostMapping("/resetUserInfo")
